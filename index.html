@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean View Hotel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://png.pngtree.com/background/20220718/original/pngtree-bedroom-guest-room-five-star-hotel-picture-image_1662975.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+
+        header, footer {
+            background: rgb(0 0 0 / 50%); /* light transparent brown */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        section {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: 20px auto;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+        }
+
+        h2 { 
+            color: #ffd166; 
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            background: #ffd166;
+            color: #023e8a;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover { 
+            background: #fcbf49; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Ocean View Hotel</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#booking">Book a Room</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>Welcome</h2>
+        <p>Welcome to Ocean View Hotels! We provide a variety of services plus modern and luxury rooms for our guests!</p>
+    </section>
+
+    <section id="booking">
+        <h2>Book a Room</h2>
+        <form id="bookingForm">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+            <select name="roomType" required>
+                <option value="">Select Room Type</option>
+                <option value="single">Single Room</option>
+                <option value="double">Double Room</option>
+            </select>
+            <input type="date" name="checkin" required>
+            <input type="date" name="checkout" required>
+            <button type="submit">Book Now</button>
+        </form>
+        <p id="confirmation" style="color:#ffd166;"></p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: andrianjoelcooray2024@gmail.com | Phone: 7200325</p>
+        <p>Address: Katunayaka, Srilanka</p>
+    </section>
+
+    <footer>
+        &copy; 2026 Ocean View Hotel. All Rights Reserved.
+    </footer>
+
+    <!-- EmailJS Integration -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("P3LXZfYD5dfyq_oaJ"); 
+        })();
+
+        const form = document.getElementById('bookingForm');
+        const confirmation = document.getElementById('confirmation');
+
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+
+            const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                roomType: form.roomType.value,
+                checkin: form.checkin.value,
+                checkout: form.checkout.value
+            };
+
+            emailjs.send("service_c01265o", "template_d95pbo4", formData)
+            .then(function(){
+                confirmation.innerHTML = `Booking confirmed! A confirmation email has been sent to ${formData.email}.`;
+                form.reset();
+            }, function(error){
+                confirmation.innerHTML = `Oops! Something went wrong. Please try again.`;
+                console.error(error);
+            });
+        });
+    </script>
+
+</body>
+</html>
